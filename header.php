@@ -120,5 +120,54 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 </div>
 
 
-
+<div class="modal fade" id="signupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" action="all/signup_process.php">
+                <div class="modal-header">
+                    <h5 class="modal-title d-flex align-items-center">
+                        <i class="bi bi-person-lines-fill fs-3 me-2"></i>
+                        User Signup
+                    </h5>
+                    <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Other form fields -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control shadow-none" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control shadow-none" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="number" class="form-control shadow-none" id="phone_number" name="phone_number">
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <textarea class="form-control shadow-none" id="address" name="address" rows="1"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date_of_birth" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control shadow-none" id="date_of_birth" name="date_of_birth">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control shadow-none" id="password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control shadow-none" id="confirm_password" name="confirm_password" required>
+                    </div>
+                    <!-- Submit button -->
+                    <div class="text-center my-1">
+                        <button type="submit" class="btn btn-dark shadow-none">SIGN UP</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
