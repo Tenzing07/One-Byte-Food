@@ -99,6 +99,58 @@ function generateVerificationCode() {
 <html>
 <head>
     <title>Forgot Password</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8; /* Light gray background */
+            color: #000; /* Black text */
+            margin: 0;
+            padding: 20px;
+            text-align: center; /* Center align content */
+        }
+
+        h2 {
+            color: #000;
+        }
+
+        form {
+            max-width: 400px;
+            display: inline-block; /* Display form as inline block */
+            background-color: #fff; /* White background for the form */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: left; /* Left align form content */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #000;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #333; /* Darker shade of black on hover */
+        }
+    </style>
 </head>
 <body>
     <h2>Forgot Password</h2>
@@ -109,3 +161,4 @@ function generateVerificationCode() {
     </form>
 </body>
 </html>
+
