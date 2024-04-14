@@ -6,3 +6,8 @@ $_SESSION = array();
 
 // Destroy the session
 session_destroy();
+
+// Redirect to the desired page after logout
+header("Location: ../"); // Adjust path as needed
+exit;
+?>
