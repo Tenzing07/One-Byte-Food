@@ -17,3 +17,8 @@ $stmt = $conn->prepare('SELECT * FROM user WHERE email = ?');
 if (!$stmt) {
     die('Error in preparing SQL statement: ' . $conn->error);
 }
+
+// Verify user and password
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+}
