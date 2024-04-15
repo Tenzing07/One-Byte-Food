@@ -8,6 +8,11 @@ require_once __DIR__ . '/vendor/autoload.php'; // Adjust the path based on your 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+// Function to generate a secure verification code
+function generateVerificationCode() {
+    return str_pad(mt_rand(100000, 999999), 6, '0', STR_PAD_LEFT);
+}
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and sanitize form data
@@ -19,18 +24,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
 
-    // Perform additional validation here if needed
+    // Validate username (only alphabetical characters)
+    if (!ctype_alpha($name)) {
+        echo "Error: Username should only contain alphabetical characters";
+        exit;
+    }
+
+    // Validate email format
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Error: Invalid email format";
+        exit;
+    }
+
+    // Validate password complexity (at least 8 characters with special symbols and numbers)
+    if (strlen($password) < 8 || !preg_match("/[A-Za-z0-9#@\$]/", $password)) {
+        echo "Error: Password should be at least 8 characters long and contain special symbols (#, @, $) and numbers";
+        exit;
+    }
+
+    // Validate phone number (only numeric characters)
+    if (!ctype_digit($phone_number)) {
+        echo "Error: Phone number should only contain numeric characters";
+        exit;
+    }
 
     // Check if passwords match
     if ($password !== $confirm_password) {
         echo "Error: Passwords do not match";
-        exit; // Stop execution if passwords don't match
+        exit;
     }
 
     // Generate a secure verification code
-    function generateVerificationCode() {
-        return str_pad(mt_rand(100000, 999999), 6, '0', STR_PAD_LEFT);
-    }
     $verification_code = generateVerificationCode();
 
     // Prepare SQL statement with a parameterized query
