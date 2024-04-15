@@ -1,137 +1,102 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>User Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8; /* Light gray background */
-            color: #000; /* Black text */
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box; /* Include padding in element's total width and height */
-        }
+<?php
+// Include essentials and perform admin login check
+require_once('inc/essentials.php');
+adminLogin();
 
-        h2 {
-            color: #000;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+// Include database configuration
+require_once('inc/db_config.php');
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
+// Check if an AJAX request to fetch user details is made
+if(isset($_POST['get_users'])) {
+    $users = array();
 
-        th, td {
-            border: 1px solid #000; /* Black border for table cells */
-            padding: 12px;
-            text-align: left;
-        }
+    // SQL query to select user details from the database
+    $sql = "SELECT id, name, email, address, phone_number FROM user";
+    $result = mysqli_query($con, $sql);
 
-        th {
-            background-color: #000;
-            color: #fff; /* White text for table header */
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2; /* Light gray background for even rows */
-        }
-
-        tr:hover {
-            background-color: #ddd; /* Darker gray background on hover */
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-
-        .edit-button {
-            padding: 8px 16px;
-            background-color: #4CAF50; /* Green color for edit button */
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-header, .modal-footer {
-            text-align: right;
-        }
-    </style>
-</head>
-<body>
-    <h2>User Details</h2>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Phone Number</th>
-            <th>Action</th>
-        </tr>
-
-        <?php
-        // Include db_config.php to establish database connection
-        include('inc/db_config.php');
-
-        // Check if $con (database connection) is valid
-        if (!$con) {
-            die("Database connection failed");
-        }
-
-        // SQL query to select id, name, email, address, and phone_number from the user table
-        $sql = "SELECT id, name, email, address, phone_number FROM user";
-        $result = mysqli_query($con, $sql);
-
-        // Check if query was executed successfully
-        if (!$result) {
-            die("Query failed: " . mysqli_error($con));
-        }
-
-        // Display the fetched data
+    if ($result) {
+        // Fetch user details and store them in an array
         while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>";
-            echo "<td>" . $row['id'] . "</td>";
-            echo "<td class='editable' data-field='name' data-id='" . $row['id'] . "'>" . $row['name'] . "</td>";
-            echo "<td>" . $row['email'] . "</td>";
-            echo "<td class='editable' data-field='address' data-id='" . $row['id'] . "'>" . $row['address'] . "</td>";
-            echo "<td class='editable' data-field='phone_number' data-id='" . $row['id'] . "'>" . $row['phone_number'] . "</td>";
-            echo "<td><button class='edit-button' onclick='openEditModal(" . $row['id'] . ")'>Edit</button></td>";
-            echo "</tr>";
+            $users[] = $row;
         }
+    }
 
-        // Close the database connection
-        mysqli_close($con);
-        ?>
-    </table>
+    // Return user details as JSON response
+    echo json_encode($users);
+    exit; // Stop further execution
+}
+?>
 
-    <!-- Edit Modal -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Users</title>
+    <!-- Include necessary CSS and JavaScript files -->
+    <?php require_once('inc/link.php'); ?>
+</head>
+<body class="bg-light">
+    <!-- Include header -->
+    <?php require_once('inc/header.php'); ?>
+    
+    <div class="container-fluid" id="main-content">
+        <div class="row">
+            <!-- Admin panel navigation menu -->
+            <div class="col-lg-2 bg-dark border-top border-3 border-secondary" id="dashboard-menu">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <div class="container-fluid flex-lg-column align-items-stretch">
+                        <h4 class="mt-2 text-light">Admin Panel</h4>
+                        <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#adminDropdown" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse flex-column align-items-stretch mt-2" id="adminDropdown">
+                            <ul class="nav nav-pills flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="dashboard.php">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <!-- Updated Users link to redirect to users.php -->
+                                <a class="nav-link text-light" href="users.php">Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="#">Rooms</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="settings.php">Settings</a>
+                            </li>
+                                <!-- Add more navigation links as needed -->
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            
+            <!-- Main content area for user details -->
+            <div class="col-lg-10 ms-auto overflow-hidden">
+                <h3 class="mb-4">User Details</h3>
+
+                <!-- User table to display user details -->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Phone Number</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-table-body">
+                        <!-- User details will be loaded dynamically here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal (for editing user details) -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="modal-header">
@@ -145,32 +110,76 @@
         </div>
     </div>
 
+    <!-- Include necessary scripts -->
+    <?php require_once('inc/scripts.php'); ?>
+
     <script>
+        // Function to fetch and display user details
+        function getUsers() {
+            let userTableBody = document.getElementById('user-table-body');
+
+            // Make an AJAX request to fetch user details
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "users.php", true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+           
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    let users = JSON.parse(xhr.responseText);
+
+                    // Clear existing table rows
+                    userTableBody.innerHTML = '';
+
+                    // Populate the table with user details
+                    users.forEach(user => {
+                        let row = `
+                            <tr>
+                                <td>${user.id}</td>
+                                <td class="editable" data-field="name" data-id="${user.id}">${user.name}</td>
+                                <td>${user.email}</td>
+                                <td class="editable" data-field="address" data-id="${user.id}">${user.address}</td>
+                                <td class="editable" data-field="phone_number" data-id="${user.id}">${user.phone_number}</td>
+                                <td><button class="edit-button" onclick="openEditModal(${user.id})">Edit</button></td>
+                            </tr>
+                        `;
+                        userTableBody.innerHTML += row;
+                    });
+                } else {
+                    console.error('Failed to fetch user details.');
+                }
+            };
+
+            xhr.send('get_users'); // Send the request to fetch users
+        }
+
+        // Function to open the edit modal with user details
         function openEditModal(userId) {
             const modal = document.getElementById('editModal');
             modal.style.display = 'block';
 
             // Fetch the editable fields for the selected user and populate the modal
-            const editableFields = document.querySelectorAll('.editable[data-id="' + userId + '"]');
+            const editableFields = document.querySelectorAll(`.editable[data-id="${userId}"]`);
             const editForm = document.getElementById('editForm');
-            editForm.innerHTML = ''; // Clear previous content
+            editForm.innerHTML = '';
 
             editableFields.forEach(field => {
                 const currentValue = field.innerText;
-                const inputField = '<input type="text" value="' + currentValue + '" data-field="' + field.dataset.field + '"><br>';
+                const inputField = `<input type="text" value="${currentValue}" data-field="${field.dataset.field}"><br>`;
                 editForm.innerHTML += inputField;
             });
 
             // Store the user ID in a hidden input field inside the modal
-            const hiddenInput = '<input type="hidden" id="editUserId" value="' + userId + '">';
+            const hiddenInput = `<input type="hidden" id="editUserId" value="${userId}">`;
             editForm.innerHTML += hiddenInput;
         }
 
+        // Function to close the edit modal
         function closeEditModal() {
             const modal = document.getElementById('editModal');
             modal.style.display = 'none';
         }
 
+        // Function to save changes to user details
         function saveChanges() {
             const userId = document.getElementById('editUserId').value;
             const inputFields = document.querySelectorAll('#editForm input');
@@ -186,24 +195,32 @@
                 data.fields[fieldName] = fieldValue;
             });
 
-            // Perform AJAX request to update the database with the new values
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'update_user.php', true);
-            xhr.setRequestHeader('Content-type', 'application/json');
+            // Perform AJAX request to update user details in the database
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "update_user.php", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
             xhr.onload = function() {
-                if (xhr.status >= 200 && xhr.status < 400) {
+                if (xhr.status === 200) {
                     alert('Changes saved successfully.');
                     closeEditModal();
-                    // You may reload the page or update the table dynamically here
+                    getUsers(); // Refresh user details after saving changes
                 } else {
                     alert('Failed to save changes. Please try again.');
                 }
             };
+
             xhr.onerror = function() {
                 alert('Failed to save changes. Please try again.');
             };
-            xhr.send(JSON.stringify(data));
+
+            xhr.send(JSON.stringify(data)); // Send the request to update user details
         }
+
+        // Load user details when the page is fully loaded
+        window.onload = function() {
+            getUsers();
+        };
     </script>
 </body>
 </html>
