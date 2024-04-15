@@ -21,7 +21,7 @@
 
     <!-- header -->
     <?php require ('all/header.php'); ?>
-    <div class="my-5 px-4">
+    <div class="my-4 px-4">
         <h2 class="fw-bold h-font text-center">CONTACT US</h2>
 
         <div class="h-line bg-dark"></div>
