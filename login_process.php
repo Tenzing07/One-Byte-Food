@@ -21,4 +21,10 @@ if (!$stmt) {
 // Verify user and password
 if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
-}
+
+     // Assuming 'password' is stored as plaintext in the database (NOT recommended)
+     if ($password === $user['password']) {
+        // Set session variables
+        $_SESSION['loggedin'] = true;
+        $_SESSION['username'] = $user['username'];
+     }}
