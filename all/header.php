@@ -131,16 +131,12 @@
                                 <input type="email" class="form-control shadow-none">
 
                             </div>
-                            <div class="col-md-6 ps-0 mb-3">
+                            <div class="col-md-12 p-0 mb-3">
                                 <label class="form-label">Phone Number</label>
                                 <input type="number" class="form-control shadow-none">
 
                             </div>
-                            <div class="col-md-6 p-0 mb-3">
-                                <label class="form-label">Picture</label>
-                                <input type="file" class="form-control shadow-none">
-
-                            </div>
+                            
                             <div class="col-md-12 p-0 mb-3">
                                 <label class="form-label">Address</label>
                                 <textarea class="form-control shadow-none" rows="1"></textarea>
