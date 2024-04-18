@@ -86,9 +86,7 @@
                         </div>
                         <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
                             <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3">Book Now</a>
-                            <a href="#" class="btn btn-sm w-100 btn-outline-dark rounded-0 fw-bold shadow-none">More
-                                details</a>
-
+                            
                         </div>
                     </div>
                 </div>
@@ -115,9 +113,7 @@
                         </div>
                         <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
                             <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3">Book Now</a>
-                            <a href="#" class="btn btn-sm w-100 btn-outline-dark rounded-0 fw-bold shadow-none">More
-                                details</a>
-
+                        
                         </div>
                     </div>
                 </div>
@@ -144,9 +140,7 @@
                         </div>
                         <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
                             <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3">Book Now</a>
-                            <a href="#" class="btn btn-sm w-100 btn-outline-dark rounded-0 fw-bold shadow-none">More
-                                details</a>
-
+                        
                         </div>
                     </div>
                 </div>
@@ -173,9 +167,7 @@
                         </div>
                         <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
                             <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3">Book Now</a>
-                            <a href="#" class="btn btn-sm w-100 btn-outline-dark rounded-0 fw-bold shadow-none">More
-                                details</a>
-
+                        
                         </div>
                     </div>
                 </div>
@@ -202,9 +194,7 @@
                         </div>
                         <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
                             <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3">Book Now</a>
-                            <a href="#" class="btn btn-sm w-100 btn-outline-dark rounded-0 fw-bold shadow-none">More
-                                details</a>
-
+                          
                         </div>
                     </div>
                 </div>
