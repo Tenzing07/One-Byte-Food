@@ -9,10 +9,22 @@
     <?php require ('all/links.php'); ?>
 
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" /> -->
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         .box {
             border-top-color: #2ec1ac !important;
+        }
+
+        .custom-submit-btn {
+            background-color: #2ec1ac !important;
+            /* Greenish color */
+            width: 100%;
+            /* Set button width to 100% */
+        }
+
+        .custom-submit-btn:hover {
+            background-color: #279e8c !important;
+            /* Darker greenish color on hover */
         }
     </style>
 </head>
@@ -21,6 +33,7 @@
 
     <!-- header -->
     <?php require ('all/header.php'); ?>
+
     <div class="my-5 px-4">
         <h2 class="fw-bold h-font text-center">OUR TABLES</h2>
 
@@ -79,15 +92,30 @@
                                     Guests
                                 </h6>
                                 <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                    2 - 4
+                                    4 (max)
                                 </span>
 
                             </div>
                         </div>
-                        <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
+                        <!-- <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
                             <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3">Book Now</a>
-                            
+
+                        </div> -->
+
+
+                        <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
+                            <form class="reservation-form">
+                                <input type="hidden" name="table_id" value="1">
+                                <!-- Replace "1" with the actual table ID -->
+                                <button type="button"
+                                    class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3 book-now-btn">Book
+                                    Now</button>
+                            </form>
                         </div>
+
+
+
+
                     </div>
                 </div>
 
@@ -106,15 +134,26 @@
                                     Guests
                                 </h6>
                                 <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                    2 - 4
+                                6 (max)
                                 </span>
 
                             </div>
                         </div>
-                        <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
+                        <!-- <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
                             <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3">Book Now</a>
-                        
+
+                        </div> -->
+
+                        <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
+                            <form class="reservation-form">
+                                <input type="hidden" name="table_id" value="2">
+                                <!-- Replace "1" with the actual table ID -->
+                                <button type="button"
+                                    class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3 book-now-btn">Book
+                                    Now</button>
+                            </form>
                         </div>
+
                     </div>
                 </div>
 
@@ -133,15 +172,28 @@
                                     Guests
                                 </h6>
                                 <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                    2 - 4
+                                10 (max)
                                 </span>
 
                             </div>
                         </div>
-                        <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
+                        <!-- <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
                             <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3">Book Now</a>
-                        
+
+                        </div> -->
+
+                        <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
+                            <form class="reservation-form">
+                                <input type="hidden" name="table_id" value="3">
+                                <!-- Replace "1" with the actual table ID -->
+                                <button type="button"
+                                    class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3 book-now-btn">Book
+                                    Now</button>
+                            </form>
                         </div>
+
+
+
                     </div>
                 </div>
 
@@ -160,15 +212,28 @@
                                     Guests
                                 </h6>
                                 <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                    2 - 4
+                                15 (max)
                                 </span>
 
                             </div>
                         </div>
-                        <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
+                        <!-- <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
                             <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3">Book Now</a>
-                        
+
+                        </div> -->
+
+                        <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
+                            <form class="reservation-form">
+                                <input type="hidden" name="table_id" value="4">
+                                <!-- Replace "1" with the actual table ID -->
+                                <button type="button"
+                                    class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3 book-now-btn">Book
+                                    Now</button>
+                            </form>
                         </div>
+
+
+
                     </div>
                 </div>
 
@@ -187,15 +252,29 @@
                                     Guests
                                 </h6>
                                 <span class="badge rounded-pill bg-light text-dark text-wrap">
-                                    2 - 4
+                                20 (max)
                                 </span>
 
                             </div>
                         </div>
-                        <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
+                        <!-- <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
                             <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3">Book Now</a>
-                          
+
+                        </div> -->
+
+                        <div class="col-md-2 mt-lg-0 mt-md-0 mt-4 text-center">
+                            <form class="reservation-form">
+                                <input type="hidden" name="table_id" value="5">
+                                <!-- Replace "1" with the actual table ID -->
+                                <button type="button"
+                                    class="btn btn-sm w-100 text-white custom-bg shadow-none mb-3 book-now-btn">Book
+                                    Now</button>
+                            </form>
                         </div>
+
+
+
+
                     </div>
                 </div>
 
@@ -206,6 +285,87 @@
         </div>
     </div>
 
+    <!-- Reservation Modal -->
+    <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reservationModalLabel">Book Now</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reservationForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="guests" class="form-label">Number of Guests</label>
+                            <input type="number" class="form-control" id="guests" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bookingTime" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="bookingDate" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="bookingTime" class="form-label">Booking Time</label>
+                            <input type="time" class="form-control" id="bookingTime" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary custom-submit-btn">Reserve</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Add event listener to all "Book Now" buttons
+            document.querySelectorAll('.book-now-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    // Open the reservation modal
+                    $('#reservationModal').modal('show');
+                });
+            });
+
+            // Handle form submission
+            document.getElementById('reservationForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Retrieve form data
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const guests = document.getElementById('guests').value;
+                const bookingTime = document.getElementById('bookingTime').value;
+                const tableId = document.querySelector('.reservation-form input[name="table_id"]').value;
+
+                // Here you can send the form data to your server using AJAX or any other method
+                // For simplicity, let's just log the data to the console
+                console.log('Name:', name);
+                console.log('Email:', email);
+                console.log('Phone Number:', phone);
+                console.log('Number of Guests:', guests);
+                console.log('Booking Time:', bookingTime);
+                console.log('Table ID:', tableId);
+
+                // Optionally, you can close the modal after form submission
+                $('#reservationModal').modal('hide');
+            });
+        });
+    </script>
 
 
     <!-- footer -->
