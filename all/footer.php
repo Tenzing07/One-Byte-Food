@@ -10,20 +10,20 @@
         </div>
         <div class="col-lg-4 p-4">
             <h5 class="mb-3">Links</h5>
-            <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Home</a><br>
-            <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Tables</a><br>
-            <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Gallery</a><br>
-            <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Menu</a><br>
-            <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">Contact Us</a><br>
-            <a href="#" class="d-inline-block mb-2 text-dark text-decoration-none">About</a>
+            <a href="index.php" class="d-inline-block mb-2 text-dark text-decoration-none">Home</a><br>
+            <a href="tables.php" class="d-inline-block mb-2 text-dark text-decoration-none">Tables</a><br>
+            <a href="gallery.php" class="d-inline-block mb-2 text-dark text-decoration-none">Gallery</a><br>
+            <a href="menu.php" class="d-inline-block mb-2 text-dark text-decoration-none">Menu</a><br>
+            <a href="contact.php" class="d-inline-block mb-2 text-dark text-decoration-none">Contact Us</a><br>
+            <a href="about.php" class="d-inline-block mb-2 text-dark text-decoration-none">About</a>
         </div>
         <div class="col-lg-4 p-4">
             <h5 class="mb-3">Follow us</h5>
-            <a href="#" class="d-inline-block text-dark text-decoration-none mb-2">
+            <a href="https://www.facebook.com/" class="d-inline-block text-dark text-decoration-none mb-2">
                 <i class="bi bi-facebook me-1"></i>
                 Facebook</a>
             <br>
-            <a href="#" class="d-inline-block text-dark text-decoration-none">
+            <a href="https://www.instagram.com/" class="d-inline-block text-dark text-decoration-none">
                 <i class="bi bi-instagram me-1"></i>
                 Instagram</a>
             <br>
