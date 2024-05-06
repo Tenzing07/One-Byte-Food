@@ -39,11 +39,11 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="mb-3">
-                                        <label class="form-label">Site Title</label>
+                                        <label class="form-label fw-bold">Site Title</label>
                                         <input type="text" name="site_title" id="site_title_inp" class="form-control shadow-none" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">About us</label>
+                                        <label class="form-label fw-bold">About us</label>
                                         <textarea name="site_about" id="site_about_inp" class="form-control shadow-none" rows="6" required></textarea>
                                     </div>
                                 <div class="modal-footer">
@@ -77,6 +77,9 @@
     <script>
         let general_data;
         let general_s_form = document.getElementById('general_s_form');
+        let site_title_inp = document.getElementById('site_title_inp');
+        let site_about_inp = document.getElementById('site_about_inp');
+
         function get_general() {
             let site_title = document.getElementById('site_title');
             let site_about = document.getElementById('site_about');
@@ -114,6 +117,7 @@
 
         general_s_form.addEventListener('submit', function(e)){
           e.prevemtDefault();
+          upd_general(site_title_inp.value,site_about_inp.value);
         }
 
         function upd_general(site_title_val,site_about_val)
