@@ -6,13 +6,14 @@ function adminLogin()
     echo "<script>
   window.location.href='index.php';
   </script>";
-
+  exit;
   }
 }
 function redirect($url){
   echo "<script>
   window.location.href='$url';
   </script>";
+  exit;
 }
 
 function alert($type, $msg){

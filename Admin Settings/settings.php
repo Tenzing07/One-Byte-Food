@@ -113,11 +113,11 @@
                             <i class="bi bi-facebook me-1"></i> 
                            <span id="fb"></span>
                            </p>
-                           <p class="card-text">
+                           <p class="card-text mb-1">
                            <i class="bi bi-instagram me-1"></i> 
                            <span id="insta"></span>
                            </p>
-                           <p class="card-text">
+                           <p class="card-text mb-1">
                            <i class="bi bi-twitter me-1"></i> 
                            <span id="tw"></span>
                            </p>
