@@ -82,23 +82,23 @@
         <div class="menu-category">
             <h3>Appetizers</h3>
             <ul class="menu-list">
-                <li class="food-item" data-img="bruschetta.jpg" data-price="200">
+                <li class="food-item" data-img="restaurant_images/menu-1.jpg" data-price="200">
                     <span class="food-name">Bruschetta</span>
                     <span class="food-price ms-3">Rs. 200</span>
                 </li>
-                <li class="food-item" data-img="caprese_salad.jpg" data-price="250">
+                <li class="food-item" data-img="restaurant_images/menu-2.jpg" data-price="250">
                     <span class="food-name">Caprese Salad</span>
                     <span class="food-price ms-3">Rs. 250</span>
                 </li>
-                <li class="food-item" data-img="spring_rolls.jpg" data-price="180">
+                <li class="food-item" data-img="restaurant_images/menu-3.jpg" data-price="180">
                     <span class="food-name">Spring Rolls</span>
                     <span class="food-price ms-3">Rs. 180</span>
                 </li>
-                <li class="food-item" data-img="garlic_bread.jpg" data-price="150">
+                <li class="food-item" data-img="restaurant_images/menu-4.jpg" data-price="150">
                     <span class="food-name">Garlic Bread</span>
                     <span class="food-price ms-3">Rs. 150</span>
                 </li>
-                <li class="food-item" data-img="stuffed_mushrooms.jpg" data-price="220">
+                <li class="food-item" data-img="restaurant_images/menu-5.jpg" data-price="220">
                     <span class="food-name">Stuffed Mushrooms</span>
                     <span class="food-price ms-3">Rs. 220</span>
                 </li>
