@@ -10,18 +10,19 @@ if (!$con) {
 }
 
 function filteration($data) {
-    global $con;  // Ensure database connection is available
+    global $con;
     foreach ($data as $key => $value) {
         $value = trim($value);
         $value = stripslashes($value);
-        $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');  // Ensure encoding is correctly defined
-        $value = mysqli_real_escape_string($con, $value);  // Protect against SQL injection
+        $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        $value = mysqli_real_escape_string($con, $value);
         $data[$key] = $value;
     }
     return $data;
 }
 
-function select($con, $sql, $values, $datatypes) {
+function select($sql, $values, $datatypes) {
+    global $con;
     $stmt = mysqli_prepare($con, $sql);
     if (!$stmt) {
         die("Query preparation failed: " . mysqli_error($con));
@@ -37,13 +38,13 @@ function select($con, $sql, $values, $datatypes) {
     return $result;
 }
 
-
-function update($con, $sql, $values, $datatypes) {
+function update($sql, $values, $datatypes) {
+    global $con;
     if ($stmt = mysqli_prepare($con, $sql)) {
         mysqli_stmt_bind_param($stmt, $datatypes, ...$values);
         mysqli_stmt_execute($stmt);
         $affected_rows = mysqli_stmt_affected_rows($stmt);
-        mysqli_stmt_close($stmt);  // Always close the statement whether successful or not
+        mysqli_stmt_close($stmt);
         return $affected_rows;
     } else {
         die("Query cannot be prepared - Update: " . mysqli_error($con));

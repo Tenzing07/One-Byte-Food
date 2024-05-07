@@ -64,7 +64,6 @@
             <div class="col-lg-10 ms-auto overflow-hidden">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h3>DASHBOARD</h3> 
-                    <h6 class="badge bg-danger py-2 px-3 px-3 rounded">Shutdown Mode is Active!</h6>
                 </div>
 
                 <!-- Section for Table Reservations, Reviews, Total Users and Contact Information -->

@@ -1,54 +1,92 @@
 <?php
-require('inc/db_config.php');
-require('inc/essentials.php');
+require('../inc/db_config.php');
+require('../inc/essentials.php');
 adminLogin();
 
-if(isset($_POST['get_general'])) {
+// Set content type for JSON responses
+header('Content-Type: application/json');
+
+// Function to handle database errors
+function handleDatabaseError($errorMessage) {
+    http_response_code(500); // Internal Server Error
+    echo json_encode(array("error" => $errorMessage));
+    exit(); // Terminate script execution
+}
+
+// Function to handle successful updates
+function handleUpdateSuccess() {
+    echo json_encode(array("success" => true));
+    exit(); // Terminate script execution
+}
+
+// Function to retrieve general settings
+function getGeneralSettings() {
     $q = "SELECT * FROM `settings` WHERE `sr_no`=?";
     $values = [1];
     $res = select($q, $values, "i");
-    if ($data = mysqli_fetch_assoc($res)) {
+
+    if ($res && $data = mysqli_fetch_assoc($res)) {
         echo json_encode($data);
     } else {
-        echo json_encode(array("error" => "No data found"));
+        handleDatabaseError("No data found");
     }
 }
 
-if(isset($_POST['upd_general'])) {
-    $frm_data = filteration($_POST);
-
+// Function to update general settings
+function updateGeneralSettings($formData) {
     $q = "UPDATE `settings` SET `site_title`=?, `site_about`=? WHERE `sr_no`=?";
-    $values = [$frm_data['site_title'], $frm_data['site_about'], 1];
+    $values = [$formData['site_title'], $formData['site_about'], 1];
     $res = update($q, $values, 'ssi');
-    echo $res;  // Ensure update() returns a meaningful result
-}
 
-if(isset($_POST['upd_shutdown'])) {
-    $frm_data = ($_POST['upd_shutdown'] == '0') ? 1 : 0;  // Fixed ternary operator
-
-    $q = "UPDATE `settings` SET `shutdown`=? WHERE `sr_no`=?";
-    $values = [$frm_data, 1];
-    $res = update($q, $values, 'ii');
-    echo $res;  // Ensure update() returns a meaningful result
-}
-
-if(isset($_POST['get_contacts'])) {
-    $q = "SELECT * FROM `contact_details` WHERE `sr_no`=?";
-    $values = [1];  // Assuming SR_NO is 1, adjust based on your database setup
-    $res = select($q, $values, "i");
-    if ($data = mysqli_fetch_assoc($res)) {
-        echo json_encode($data);
+    if ($res) {
+        handleUpdateSuccess();
     } else {
-        echo json_encode(array("error" => "No data found"));
+        handleDatabaseError("Failed to update general settings");
     }
 }
 
-if(isset($_POST['upd_contacts'])) {
-    $frm_data = filteration($_POST);
+// Function to retrieve contact details
+function getContactDetails() {
+    $q = "SELECT * FROM `contact_details` WHERE `sr_no`=?";
+    $values = [1];
+    $res = select($q, $values, "i");
 
+    if ($res && $data = mysqli_fetch_assoc($res)) {
+        echo json_encode($data);
+    } else {
+        handleDatabaseError("No data found");
+    }
+}
+
+// Function to update contact details
+function updateContactDetails($formData) {
     $q = "UPDATE `contact_details` SET `address`=?, `gmap`=?, `pn1`=?, `pn2`=?, `email`=?, `fb`=?, `insta`=?, `tw`=?, `iframe`=? WHERE `sr_no`=?";
-    $values = [$frm_data['address'], $frm_data['gmap'], $frm_data['pn1'], $frm_data['pn2'], $frm_data['email'], $frm_data['fb'], $frm_data['insta'], $frm_data['tw'], $frm_data['iframe'], 1];
+    $values = [$formData['address'], $formData['gmap'], $formData['pn1'], $formData['pn2'], $formData['email'], $formData['fb'], $formData['insta'], $formData['tw'], $formData['iframe'], 1];
     $res = update($q, $values, 'sssssssssi');
-    echo $res;  // Ensure update() returns a meaningful result
+
+    if ($res) {
+        handleUpdateSuccess();
+    } else {
+        handleDatabaseError("Failed to update contact details");
+    }
+}
+
+// Handle different POST requests
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['get_general'])) {
+        getGeneralSettings();
+    } elseif (isset($_POST['upd_general'])) {
+        updateGeneralSettings($_POST);
+    } elseif (isset($_POST['upd_shutdown'])) {
+        updateShutdownStatus($_POST);
+    } elseif (isset($_POST['get_contacts'])) {
+        getContactDetails();
+    } elseif (isset($_POST['upd_contacts'])) {
+        updateContactDetails($_POST);
+    } else {
+        handleDatabaseError("Invalid request");
+    }
+} else {
+    handleDatabaseError("Invalid request method");
 }
 ?>

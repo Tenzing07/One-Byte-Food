@@ -52,6 +52,20 @@ if(isset($_POST['delete_user'])) {
     <title>Admin Panel - Users</title>
     <!-- Include necessary CSS and JavaScript files -->
     <?php require_once('inc/link.php'); ?>
+    <style>
+        .delete-button {
+            background-color: red; /* Set background color to red */
+            color: white; /* Set text color to white */
+            border: none; /* Remove border */
+            padding: 5px 10px; /* Add padding */
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+
+        /* Optional: Add hover effect */
+        .delete-button:hover {
+            background-color: darkred; /* Darken background color on hover */
+        }
+    </style>
 </head>
 <body class="bg-light">
     <!-- Include header -->

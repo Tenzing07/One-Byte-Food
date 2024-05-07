@@ -56,23 +56,6 @@
                     </div>
                 </div>
 
-                <!-- Shutdown section -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <h5 class="card-title m-0">Shutdown Website</h5>
-                            <div class="form-check form-switch">
-                                <form>
-                                    <input onchange="upd_shutdown(this.checked ? 1 : 0)" class="form-check-input" type="checkbox" id="shutdown-toggle">
-                                </form>
-                            </div>
-                        </div>
-                        <p class="card-text">
-                            No customer will be allowed to book a table when shutdown mode is turned on.
-                        </p>
-                    </div>
-                </div>
-
                 <!-- Contact details section -->
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body">
@@ -119,7 +102,7 @@
                                         <span id="insta"></span>
                                     </p>
                                     <p class="card-text mb-1">
-                                        <i the class="bi bi-twitter me-1"></i>
+                                        <i class="bi bi-twitter me-1"></i>
                                         <span id="tw"></span>
                                     </p>
                                 </div>
@@ -206,75 +189,118 @@
 
     <?php require('inc/scripts.php'); ?>
     <script>
-        // JavaScript functions here
-        let general_data, contacts_data;
-
-// Form references
-let general_s_form = document.getElementById('general_s_form');
-let contacts_s_form = document.getElementById('contacts_s_form');
-
-function get_general() {
-    let site_title = document.getElementById('site_title');
-    let site_about = document.getElementById('site_about');
-    let site_title_inp = document.getElementById('site_title_inp');
-    let site_about_inp = document.getElementById('site_about_inp');
-    let shutdown_toggle = document.getElementById('shutdown-toggle');
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", `ajax/settings_crud.php`, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        general_data = JSON.parse(this.responseText);
-        site_title.innerText = general_data.site_title;
-        site_about.innerText = general_data.site_about;
-        site_title_inp.value = general_data.site_title;
-        site_about_inp.value = general_data.site_about;
-        shutdown_toggle.checked = general_data.shutdown === "1";
+    // Fetch general settings
+    function getGeneral() {
+        fetch('ajax/settings_crud.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'get_general=1',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch general settings');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update DOM with fetched general settings
+            updateGeneralSettingsUI(data);
+        })
+        .catch(error => {
+            console.error('Error fetching general settings:', error);
+        });
     }
-    xhr.send('get_general=1');
-}
 
-function get_contacts() {
-    let address = document.getElementById('address');
-    let gmap = document.getElementById('gmap');
-    let pn1 = document.getElementById('pn1');
-    let pn2 = document.getElementById('pn2');
-    let email = document.getElementById('email');
-    let fb = document.getElementById('fb');
-    let insta = document.getElementById('insta');
-    let tw = document.getElementById('tw');
-    let iframe = document.getElementById('iframe');
-
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", `ajax/settings_crud.php`, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        contacts_data = JSON.parse(this.responseText);
-        address.innerText = contacts_data.address;
-        gmap.innerText = contacts_data.gmap;
-        pn1.innerText = contacts_data.pn1;
-        pn2.innerText = contacts_data.pn2;
-        email.innerText = contacts_data.email;
-        fb.innerText = contacts_data.fb;
-        insta.innerText = contacts_data.insta;
-        tw.innerText = contacts_data.tw;
-        iframe.src = contacts_data.iframe;
+    // Update UI with general settings data
+    function updateGeneralSettingsUI(data) {
+        document.getElementById('site_title').innerText = data.site_title;
+        document.getElementById('site_about').innerText = data.site_about;
+        document.getElementById('site_title_inp').value = data.site_title;
+        document.getElementById('site_about_inp').value = data.site_about;
     }
-    xhr.send('get_contacts=1');
-}
 
-general_s_form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    upd_general(document.getElementById('site_title_inp').value, document.getElementById('site_about_inp').value);
-});
+    // Fetch contact details
+    function getContacts() {
+        fetch('ajax/settings_crud.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'get_contacts=1',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch contact details. Status: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update DOM with fetched contact details
+            updateContactDetailsUI(data);
+        })
+        .catch(error => {
+            console.error('Error fetching contact details:', error);
+        });
+    }
 
-// Define other functions here (upd_general, get_contacts, upd_contacts, etc.)
+    // Update UI with contact details data
+    function updateContactDetailsUI(data) {
+        document.getElementById('address').innerText = data.address;
+        document.getElementById('gmap').innerText = data.gmap;
+        document.getElementById('pn1').innerText = data.pn1;
+        document.getElementById('pn2').innerText = data.pn2;
+        document.getElementById('email').innerText = data.email;
+        document.getElementById('fb').innerText = data.fb;
+        document.getElementById('insta').innerText = data.insta;
+        document.getElementById('tw').innerText = data.tw;
+        document.getElementById('iframe').src = data.iframe;
+    }
 
-window.onload = function() {
-    get_general();
-    get_contacts();
-}
+    // Event listener for general settings form submission
+    document.getElementById('general_s_form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const urlSearchParams = new URLSearchParams(formData);
+        const params = new URLSearchParams(urlSearchParams).toString();
+        updateGeneral(params);
+    });
 
+    // Update general settings
+    function updateGeneral(params) {
+        fetch('ajax/settings_crud.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: params,
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update general settings. Status: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Optional: Show success message or update UI as needed
+                console.log('General settings updated successfully');
+            } else {
+                console.error('Failed to update general settings');
+            }
+        })
+        .catch(error => {
+            console.error('Error updating general settings:', error);
+        });
+    }
+
+    // Call functions on window load
+    window.onload = function() {
+        getGeneral();
+        getContacts();
+    };
     </script>
+
 </body>
 </html>
