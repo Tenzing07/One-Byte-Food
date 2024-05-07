@@ -38,12 +38,10 @@
     <div class="my-4 px-4">
         <h2 class="fw-bold h-font text-center">GALLERY</h2>
 
-        <!-- <div class="h-line bg-dark"></div>
-        <p class="text-center mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Beatae molestias cumque adipisci et illum iure <br>blanditiis ipsum delectus
-            commodi deleniti!
-        </p> -->
+        <div class="h-line bg-dark"></div>
+
     </div>
+
 
     <div class="container px-5 ">
         <!-- Swiper -->
