@@ -22,21 +22,21 @@ function filteration($data) {
 }
 
 function select($con, $sql, $values, $datatypes) {
-    if ($stmt = mysqli_prepare($con, $sql)) {
-        mysqli_stmt_bind_param($stmt, $datatypes, ...$values);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        if ($result) {
-            mysqli_stmt_close($stmt);  // Close the statement after fetching the result
-            return $result;
-        } else {
-            mysqli_stmt_close($stmt);
-            die("Query cannot be executed - Select: " . mysqli_error($con));
-        }
-    } else {
-        die("Query cannot be prepared - Select: " . mysqli_error($con));
+    $stmt = mysqli_prepare($con, $sql);
+    if (!$stmt) {
+        die("Query preparation failed: " . mysqli_error($con));
     }
+    mysqli_stmt_bind_param($stmt, $datatypes, ...$values);
+    if (!mysqli_stmt_execute($stmt)) {
+        die("Query execution failed: " . mysqli_stmt_error($stmt));
+    }
+    $result = mysqli_stmt_get_result($stmt);
+    if ($result === false) {
+        die("Getting result set failed: " . mysqli_error($con));
+    }
+    return $result;
 }
+
 
 function update($con, $sql, $values, $datatypes) {
     if ($stmt = mysqli_prepare($con, $sql)) {

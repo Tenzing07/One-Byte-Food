@@ -150,7 +150,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label fw-bold">Google Map Link</label>
-                                                    <input type of "text" name="gmap" id="gmap_inp" class="form-control shadow-none" required>
+                                                    <input type="text" name="gmap" id="gmap_inp" class="form-control shadow-none" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label fw-bold">E-mail</label>
@@ -221,7 +221,7 @@ function get_general() {
     let shutdown_toggle = document.getElementById('shutdown-toggle');
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "ajax/settings_crud.php", true);
+    xhr.open("POST", `ajax/settings_crud.php`, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload = function() {
         general_data = JSON.parse(this.responseText);
@@ -232,6 +232,35 @@ function get_general() {
         shutdown_toggle.checked = general_data.shutdown === "1";
     }
     xhr.send('get_general=1');
+}
+
+function get_contacts() {
+    let address = document.getElementById('address');
+    let gmap = document.getElementById('gmap');
+    let pn1 = document.getElementById('pn1');
+    let pn2 = document.getElementById('pn2');
+    let email = document.getElementById('email');
+    let fb = document.getElementById('fb');
+    let insta = document.getElementById('insta');
+    let tw = document.getElementById('tw');
+    let iframe = document.getElementById('iframe');
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", `ajax/settings_crud.php`, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+        contacts_data = JSON.parse(this.responseText);
+        address.innerText = contacts_data.address;
+        gmap.innerText = contacts_data.gmap;
+        pn1.innerText = contacts_data.pn1;
+        pn2.innerText = contacts_data.pn2;
+        email.innerText = contacts_data.email;
+        fb.innerText = contacts_data.fb;
+        insta.innerText = contacts_data.insta;
+        tw.innerText = contacts_data.tw;
+        iframe.src = contacts_data.iframe;
+    }
+    xhr.send('get_contacts=1');
 }
 
 general_s_form.addEventListener('submit', function(e) {
