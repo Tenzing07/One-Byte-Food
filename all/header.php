@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     // If user is logged in, display logout button
     echo '
     <nav class="navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
@@ -34,10 +34,25 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                     </li>
                 </ul>
                 <div class="d-flex">
+
+                <!-- Profile Button -->
+                    <form action="profile.php" method="GET">
+                    <button type="submit" class="btn btn-outline-dark shadow-none">Profile</button>
+                </form>
+
+   
+                
+
+
+
+                <div class="d-flex">
                     <form action="all/logout.php" method="post">
                         <button type="submit" class="btn btn-outline-dark shadow-none">Logout</button>
                     </form>
                 </div>
+
+
+
             </div>
         </div>
     </nav>';
@@ -90,7 +105,8 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 ?>
 
 
-<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" action="all/login_process.php">
@@ -98,7 +114,8 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                     <h5 class="modal-title d-flex align-items-center">
                         <i class="bi bi-person-circle fs-3 me-2"></i> User Login
                     </h5>
-                    <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
@@ -121,7 +138,8 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 
 
 
-<div class="modal fade" id="signupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="signupModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form method="post" action="all/signup_process.php">
@@ -130,7 +148,8 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                         <i class="bi bi-person-lines-fill fs-3 me-2"></i>
                         User Signup
                     </h5>
-                    <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Other form fields -->
@@ -160,7 +179,8 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                     </div>
                     <div class="mb-3">
                         <label for="confirm_password" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control shadow-none" id="confirm_password" name="confirm_password" required>
+                        <input type="password" class="form-control shadow-none" id="confirm_password"
+                            name="confirm_password" required>
                     </div>
                     <!-- Submit button -->
                     <div class="text-center my-1">
@@ -171,4 +191,3 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
         </div>
     </div>
 </div>
-
