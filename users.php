@@ -76,8 +76,6 @@ if(isset($_POST['delete_user'])) {
             <!-- Admin panel navigation menu -->
             <div class="col-lg-2 bg-dark border-top border-3 border-secondary" id="dashboard-menu">
                 <!-- Admin panel navigation links -->
-                <!-- Admin panel navigation links -->
-                <!-- Admin panel navigation links -->
                 <nav class="navbar navbar-expand-lg navbar-dark">
                     <div class="container-fluid flex-lg-column align-items-stretch">
                         <h4 class="mt-2 text-light">Admin Panel</h4>
