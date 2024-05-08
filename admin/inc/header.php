@@ -22,6 +22,9 @@
                         <a class="nav-link text-light" href="admin.php">Tables</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-light" href="reviews.php">Reviews</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-light" href="settings.php">Settings</a>
                     </li>
                 </ul>
