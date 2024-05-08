@@ -143,9 +143,8 @@
 
                         </div>
                         <div class="d-flex justify-content-evenly mb-2">
-                            <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
-                            <a href="#" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More
-                                Details</a>
+                            <!-- <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a> -->
+                           
                         </div>
 
 
@@ -182,9 +181,8 @@
 
                         </div>
                         <div class="d-flex justify-content-evenly mb-2">
-                            <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
-                            <a href="#" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More
-                                Details</a>
+                            <!-- <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a> -->
+                           
                         </div>
 
 
@@ -221,9 +219,8 @@
 
                         </div>
                         <div class="d-flex justify-content-evenly mb-2">
-                            <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
-                            <a href="#" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More
-                                Details</a>
+                            <!-- <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a> -->
+                           
                         </div>
 
 
@@ -240,7 +237,7 @@
 
 
             <div class="col-lg-l2 text-center mt-5">
-                <a href="#" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More Tables>>></a>
+                <a href="tables.php" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More Tables</a>
 
             </div>
         </div>
