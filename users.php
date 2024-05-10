@@ -42,6 +42,26 @@ if(isset($_POST['delete_user'])) {
     }
     exit; // Stop further execution
 }
+
+// Check if an AJAX request to update user details is made
+if(isset($_POST['update_user'])) {
+    $userId = $_POST['id'];
+    $name = $_POST['name'];
+    $address = $_POST['address'];
+    $phone_number = $_POST['phone_number'];
+
+    // SQL query to update user details in the database
+    $sql = "UPDATE user SET name='$name', address='$address', phone_number='$phone_number' WHERE id='$userId'";
+    $result = mysqli_query($con, $sql);
+
+    // Check if the update was successful
+    if ($result) {
+        echo json_encode(array('success' => true));
+    } else {
+        echo json_encode(array('success' => false));
+    }
+    exit; // Stop further execution
+}
 ?>
 
 <!DOCTYPE html>
@@ -240,24 +260,14 @@ if(isset($_POST['delete_user'])) {
         // Function to save changes to user details
         function saveChanges() {
             const userId = document.getElementById('editUserId').value;
-            const inputFields = document.querySelectorAll('#editForm input');
-
-            const data = {
-                id: userId,
-                fields: {}
-            };
-
-            inputFields.forEach(input => {
-                const fieldName = input.dataset.field;
-                const fieldValue = input.value;
-                data.fields[fieldName] = fieldValue;
-            });
+            const name = document.querySelector('#editForm [data-field="name"]').value;
+            const address = document.querySelector('#editForm [data-field="address"]').value;
+            const phone_number = document.querySelector('#editForm [data-field="phone_number"]').value;
 
             // Perform AJAX request to update user details in the database
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'update_user.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-
+            xhr.open('POST', 'users.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     const response = JSON.parse(xhr.responseText);
@@ -272,12 +282,7 @@ if(isset($_POST['delete_user'])) {
                     alert('Failed to save changes. Please try again.');
                 }
             };
-
-            xhr.onerror = function() {
-                alert('Failed to save changes. Please try again.');
-            };
-
-            xhr.send(JSON.stringify(data)); // Send the request to update user details
+            xhr.send(`update_user=true&id=${userId}&name=${name}&address=${address}&phone_number=${phone_number}`);
          }
 
 
