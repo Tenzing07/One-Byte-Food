@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One Byte Foods - profile</title>
+    <title>One Byte Foods - Profile</title>
 
-    <?php require ('all/links.php'); ?>
-
+    <?php require_once 'all/links.php'; ?>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
@@ -62,47 +61,30 @@
            
         }
     </style>
-
 </head>
 
 <body class="bg-light">
 
-    <!-- header -->
-    <?php require ('<all/header.php'); ?>
+    <!-- Include header -->
+    <?php require_once 'all/header.php'; ?>
+
     <div class="my-4 px-4">
         <h2 class="fw-bold h-font text-center">MY PROFILE</h2>
-
         <div class="h-line bg-dark"></div>
-
     </div>
-
-
 
     <div class="container">
         <!-- User Information -->
         <div class="user-info">
-            
-            <p><strong>Username:</strong> BristinaPrajapati</p>
-            <p><strong>Email:</strong> bristinaprajapati@gmail.com</p>
-            <p><strong>Phone:</strong> 9876543212</p>
-            <!-- Change Password Form -->
-            <form id="change-password-form">
-            <h4 class="fw-bold">Change Password</h4>
-                <div class="form-group">
-                    <label for="current-password">Current Password</label>
-                    <input type="password" class="form-control" id="current-password" required>
-                </div>
-                <div class="form-group">
-                    <label for="new-password">New Password</label>
-                    <input type="password" class="form-control" id="new-password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirm-password" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Change Password</button>
-            </form>
+            <h3>User Information</h3>
+            <p><strong>Name:</strong> <span id="profileName"></span></p>
+            <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+            <p><strong>Phone:</strong> <span id="profilePhone"></span></p>
         </div>
+
+        <!-- Change Password Form (if needed) -->
+        <!-- You can include the change password form here -->
+
         <!-- Booking Histories -->
         <div class="booking-history">
             <h4 class="fw-bold">Booking Histories</h4>
@@ -120,27 +102,34 @@
                 </tbody>
             </table>
         </div>
+
     </div>
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- Include necessary JavaScript files -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Fetch user data using AJAX
+            $.ajax({
+                type: 'GET',
+                url: 'fetch_user_data.php',
+                dataType: 'json',
+                success: function(data) {
+                    // Populate user profile information
+                    $('#profileName').text(data.name);
+                    $('#profileEmail').text(data.email);
+                    $('#profilePhone').text(data.phone);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching user data:', error);
+                    // Handle error gracefully (e.g., display an error message)
+                }
+            });
+        });
+    </script>
 
-
-
-
-
-
-
-
-    <!-- footer -->
-    <?php require ('all/footer.php'); ?>
-
-
-
-
-
+    <!-- Include footer -->
+    <?php require_once 'all/footer.php'; ?>
 
 </body>
 
