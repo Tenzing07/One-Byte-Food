@@ -25,29 +25,45 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Retrieve user ID from session
     $userId = $_SESSION['userId'];
 
-    // Insert into reservations table with user_id
-    $sql = "INSERT INTO reservations (user_id, table_id, guests, name, email, phone, booking_date, booking_time) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iiisssss", $userId, $tableId, $guests, $name, $email, $phone, $bookingDate, $bookingTime);
+    // Get table name based on table_id
+    $tableName = '';
+    $getTableNameSql = "SELECT table_name FROM tables WHERE id = ?";
+    $getTableNameStmt = $conn->prepare($getTableNameSql);
+    $getTableNameStmt->bind_param("i", $tableId);
+    $getTableNameStmt->execute();
+    $getTableNameStmt->bind_result($tableName);
+    $getTableNameStmt->fetch();
+    $getTableNameStmt->close();
 
-    $response = array();
+    if (empty($tableName)) {
+        // If table name is not found for the given table_id, return an error response
+        echo json_encode(['success' => false, 'error' => 'Invalid table ID']);
+        exit;
+    }
 
-    if ($stmt->execute()) {
+    // Insert into reservations table with user_id and table_name
+    $insertReservationSql = "INSERT INTO reservations (user_id, table_id, guests, name, email, phone, booking_date, booking_time, table_name) 
+                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $insertReservationStmt = $conn->prepare($insertReservationSql);
+    $insertReservationStmt->bind_param("iiissssss", $userId, $tableId, $guests, $name, $email, $phone, $bookingDate, $bookingTime, $tableName);
+
+    $response = [];
+
+    if ($insertReservationStmt->execute()) {
         // Reservation successful, update table status to 'booked'
-        $updateSql = "UPDATE tables SET status = 'booked' WHERE id = ?";
-        $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("i", $tableId);
-        $updateStmt->execute();
-        $updateStmt->close();
+        $updateTableStatusSql = "UPDATE tables SET status = 'booked' WHERE id = ?";
+        $updateTableStatusStmt = $conn->prepare($updateTableStatusSql);
+        $updateTableStatusStmt->bind_param("i", $tableId);
+        $updateTableStatusStmt->execute();
+        $updateTableStatusStmt->close();
 
         $response['success'] = true;
     } else {
         $response['success'] = false;
-        $response['error'] = 'Database error: ' . $stmt->error;
+        $response['error'] = 'Database error: ' . $insertReservationStmt->error;
     }
 
-    $stmt->close();
+    $insertReservationStmt->close();
     $conn->close();
 
     // Return JSON response

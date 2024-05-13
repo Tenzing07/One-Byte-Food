@@ -77,6 +77,7 @@
                 $tableName = $row['table_name'];
                 $maxGuests = $row['max_guests'];
                 $tableId = $row['id'];
+                $imageData = $row['image']; // Retrieve image data from database
 
                 // Check if the table is already booked
                 $isBooked = false;
@@ -98,6 +99,11 @@
                 echo '<div class="card-body">';
                 echo '<h5 class="card-title fw-bold">' . $tableName . '</h5>';
                 echo '<p class="card-text">Maximum Guests: ' . $maxGuests . '</p>';
+
+                if ($imageData) {
+                    // Display image if available
+                    echo '<img src="data:image/jpeg;base64,' . base64_encode($imageData) . '" class="card-img-top mb-3" alt="Table Image">';
+                }
 
                 if ($isBooked) {
                     echo '<button type="button" class="btn btn-sm w-100 text-white btn-booked" disabled>Booked</button>';
@@ -198,6 +204,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title fw-bold">${table.tableName}</h5>
                                             <p class="card-text">Maximum Guests: ${table.maxGuests}</p>
+                                            ${table.imageData ? '<img src="data:image/jpeg;base64,' + table.imageData + '" class="card-img-top mb-3" alt="Table Image">' : ''}
                                             <button type="button" class="btn btn-sm w-100 text-white ${
                                                 table.isBooked ? 'btn-booked' : 'custom-submit-btn reserve-btn'
                                             }" data-table-id="${table.tableId}" ${

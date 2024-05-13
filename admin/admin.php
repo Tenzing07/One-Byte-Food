@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="admin.css"> 
     <style>
         /* Reset and General Styles */
-     * {
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -50,7 +50,8 @@
         }
 
         input[type="text"],
-        input[type="number"] {
+        input[type="number"],
+        input[type="file"] {
             width: 100%;
             padding: 12px;
             margin-bottom: 20px;
@@ -60,7 +61,8 @@
         }
 
         input[type="text"]:focus,
-        input[type="number"]:focus {
+        input[type="number"]:focus,
+        input[type="file"]:focus {
             border-color: #007bff;
             outline: none;
         }
@@ -81,12 +83,14 @@
 
         /* Table Styles */
         .table-item {
+            position: relative; /* Set position relative for proper positioning */
             padding: 20px;
             border: 1px solid #ddd;
             border-radius: 8px;
             margin-bottom: 20px;
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Hide overflow to prevent image overlap */
         }
 
         .table-item h3 {
@@ -94,13 +98,10 @@
             margin-bottom: 10px;
         }
 
-        .table-item p {
-            color: #666;
-            margin-bottom: 15px;
-        }
-
         .delete-form {
-            display: inline-block;
+            position: absolute;
+            top: 10px; /* Adjust top position as needed */
+            right: 10px; /* Adjust right position as needed */
         }
 
         .delete-btn {
@@ -117,13 +118,36 @@
             background-color: #c82333;
         }
 
+        .image-upload {
+            margin-top: 10px;
+            position: relative;
+            width: 100%;
+            height: 150px; /* Adjust height as needed */
+            overflow: hidden;
+        }
+
+        .image-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .image-upload img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensure image covers the entire area */
+        }
+
         /* Responsive Styles */
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
             }
         }
-
     </style>
 </head>
 <body class="bg-light">
@@ -166,12 +190,15 @@
             <div class="col-lg-10 ms-auto overflow-hidden">
                 <div class="container">
                     <h1>Add New Table</h1>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
                         <label for="tableName">Table Name:</label>
                         <input type="text" id="tableName" name="tableName" required>
                         <br><br>
                         <label for="maxGuests">Maximum Guests:</label>
                         <input type="number" id="maxGuests" name="maxGuests" required>
+                        <br><br>
+                        <label for="tableImage">Table Image:</label>
+                        <input type="file" id="tableImage" name="tableImage" accept="image/*" required>
                         <br><br>
                         <button type="submit" name="submit">Add Table</button>
                     </form>
@@ -180,8 +207,7 @@
 
                     <h1>Existing Tables</h1>
                     <?php
-                    // Include the essentials and database configuration files
-                    require_once('inc/essentials.php');
+                    // Include database connection
                     require_once('inc/db_config.php');
 
                     // Check if $con (database connection) is set and valid
@@ -195,10 +221,17 @@
                                 echo "<div class='table-item'>";
                                 echo "<h3>" . htmlspecialchars($row['table_name']) . "</h3>";
                                 echo "<p>Maximum Guests: " . $row['max_guests'] . "</p>";
+                                echo "<div class='image-upload'>";
+                                if ($row['image']) {
+                                    echo "<img src='data:image/jpeg;base64," . base64_encode($row['image']) . "' alt='Table Image'>";
+                                } else {
+                                    echo "<p>No image available</p>";
+                                }
                                 echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post' class='delete-form'>";
                                 echo "<input type='hidden' name='tableId' value='" . $row['id'] . "'>";
                                 echo "<button type='submit' name='delete' class='delete-btn'>Delete Table</button>";
                                 echo "</form>";
+                                echo "</div>";
                                 echo "</div>";
                             }
                         } else {
@@ -211,20 +244,29 @@
                             $maxGuests = filter_input(INPUT_POST, 'maxGuests', FILTER_VALIDATE_INT);
 
                             if ($tableName && $maxGuests !== false) {
-                                $sqlInsert = "INSERT INTO tables (table_name, max_guests) VALUES (?, ?)";
-                                $stmt = $con->prepare($sqlInsert);
-                                if ($stmt) {
-                                    $stmt->bind_param("si", $tableName, $maxGuests);
-                                    if ($stmt->execute()) {
-                                        echo "<script>alert('Table added successfully');</script>";
-                                        // Redirect to avoid form resubmission
-                                        echo "<script>window.location.replace('{$_SERVER['PHP_SELF']}');</script>";
+                                // Process image upload
+                                if ($_FILES['tableImage']['error'] === UPLOAD_ERR_OK) {
+                                    $tmpName = $_FILES['tableImage']['tmp_name'];
+                                    $imgData = file_get_contents($tmpName);
+
+                                    // Prepare and execute SQL to insert data into tables table
+                                    $sqlInsert = "INSERT INTO tables (table_name, max_guests, image) VALUES (?, ?, ?)";
+                                    $stmt = $con->prepare($sqlInsert);
+                                    if ($stmt) {
+                                        $stmt->bind_param("sis", $tableName, $maxGuests, $imgData);
+                                        if ($stmt->execute()) {
+                                            echo "<script>alert('Table added successfully with image');</script>";
+                                            // Redirect to avoid form resubmission
+                                            echo "<script>window.location.replace('{$_SERVER['PHP_SELF']}');</script>";
+                                        } else {
+                                            echo "Error: " . $stmt->error;
+                                        }
+                                        $stmt->close();
                                     } else {
-                                        echo "Error: " . $stmt->error;
+                                        echo "Error: " . $con->error;
                                     }
-                                    $stmt->close();
                                 } else {
-                                    echo "Error: " . $con->error;
+                                    echo "Error uploading image";
                                 }
                             } else {
                                 echo "Invalid input data";
@@ -267,5 +309,19 @@
     <!-- Include necessary scripts -->
     <?php require_once('inc/scripts.php'); ?>
 
+    <script>
+    function previewImage(event, previewId) {
+        const input = event.target;
+        const file = input.files[0];
+        const preview = document.getElementById('preview' + previewId);
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+    </script>
 </body>
 </html>
