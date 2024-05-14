@@ -85,7 +85,7 @@
                         </a>
                     </div>
                     <div class="col-md-3 mb-4">
-                        <a href="user_queries.php">
+                        <a href="Reviews.php">
                             <div class="card text-center p-3 reviews">
                                 <h6>Reviews</h6>
                                 <p><?php echo getRowCount('contact'); ?></p>

@@ -28,12 +28,21 @@ if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
     // Assuming 'password' is stored as plaintext in the database (NOT recommended)
     if ($password === $user['password']) {
+        // Update user status to 'online' upon successful login
+        $updateStmt = $conn->prepare('UPDATE user SET status = ? WHERE id = ?');
+        $onlineStatus = 'online';
+        $userId = $user['id'];
+        $updateStmt->bind_param('si', $onlineStatus, $userId);
+        $updateStmt->execute();
+        $updateStmt->close();
+
         // Set session variables
         $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $user['username'];
+        $_SESSION['userId'] = $user['id']; // Store user ID in session
+        $_SESSION['username'] = $user['name'];
 
-        // Redirect to the parent directory after successful login
-        header("Location: ../"); // Redirect to parent directory
+        // Redirect to the desired page after successful login
+        header("Location: ../"); // Redirect to parent directory or dashboard
         exit;
     } else {
         echo "Login failed: Incorrect email or password";

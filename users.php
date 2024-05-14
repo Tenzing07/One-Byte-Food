@@ -25,6 +25,43 @@ if(isset($_POST['get_users'])) {
     echo json_encode($users);
     exit; // Stop further execution
 }
+
+// Check if an AJAX request to delete a user is made
+if(isset($_POST['delete_user'])) {
+    $userId = $_POST['user_id'];
+
+    // SQL query to delete user from the database
+    $sql = "DELETE FROM user WHERE id = $userId";
+    $result = mysqli_query($con, $sql);
+
+    // Check if the deletion was successful
+    if ($result) {
+        echo json_encode(array('success' => true));
+    } else {
+        echo json_encode(array('success' => false));
+    }
+    exit; // Stop further execution
+}
+
+// Check if an AJAX request to update user details is made
+if(isset($_POST['update_user'])) {
+    $userId = $_POST['id'];
+    $name = $_POST['name'];
+    $address = $_POST['address'];
+    $phone_number = $_POST['phone_number'];
+
+    // SQL query to update user details in the database
+    $sql = "UPDATE user SET name='$name', address='$address', phone_number='$phone_number' WHERE id='$userId'";
+    $result = mysqli_query($con, $sql);
+
+    // Check if the update was successful
+    if ($result) {
+        echo json_encode(array('success' => true));
+    } else {
+        echo json_encode(array('success' => false));
+    }
+    exit; // Stop further execution
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +72,20 @@ if(isset($_POST['get_users'])) {
     <title>Admin Panel - Users</title>
     <!-- Include necessary CSS and JavaScript files -->
     <?php require_once('inc/link.php'); ?>
+    <style>
+        .delete-button {
+            background-color: red; /* Set background color to red */
+            color: white; /* Set text color to white */
+            border: none; /* Remove border */
+            padding: 5px 10px; /* Add padding */
+            cursor: pointer; /* Change cursor to pointer on hover */
+        }
+
+        /* Optional: Add hover effect */
+        .delete-button:hover {
+            background-color: darkred; /* Darken background color on hover */
+        }
+    </style>
 </head>
 <body class="bg-light">
     <!-- Include header -->
@@ -44,6 +95,7 @@ if(isset($_POST['get_users'])) {
         <div class="row">
             <!-- Admin panel navigation menu -->
             <div class="col-lg-2 bg-dark border-top border-3 border-secondary" id="dashboard-menu">
+                <!-- Admin panel navigation links -->
                 <nav class="navbar navbar-expand-lg navbar-dark">
                     <div class="container-fluid flex-lg-column align-items-stretch">
                         <h4 class="mt-2 text-light">Admin Panel</h4>
@@ -52,19 +104,18 @@ if(isset($_POST['get_users'])) {
                         </button>
                         <div class="collapse navbar-collapse flex-column align-items-stretch mt-2" id="adminDropdown">
                             <ul class="nav nav-pills flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="dashboard.php">Dashboard</a>
-                            </li>
-                            <li class="nav-item">
-                                <!-- Updated Users link to redirect to users.php -->
-                                <a class="nav-link text-light" href="users.php">Users</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="#">Rooms</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" href="settings.php">Settings</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" href="dashboard.php">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" href="users.php">Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" href="admin.php">Table</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" href="settings.php">Settings</a>
+                                </li>
                                 <!-- Add more navigation links as needed -->
                             </ul>
                         </div>
@@ -116,30 +167,33 @@ if(isset($_POST['get_users'])) {
     <script>
         // Function to fetch and display user details
         function getUsers() {
-            let userTableBody = document.getElementById('user-table-body');
+            const userTableBody = document.getElementById('user-table-body');
 
             // Make an AJAX request to fetch user details
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "users.php", true);
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'users.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
            
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    let users = JSON.parse(xhr.responseText);
+                    const users = JSON.parse(xhr.responseText);
 
                     // Clear existing table rows
                     userTableBody.innerHTML = '';
 
                     // Populate the table with user details
                     users.forEach(user => {
-                        let row = `
+                        const row = `
                             <tr>
                                 <td>${user.id}</td>
                                 <td class="editable" data-field="name" data-id="${user.id}">${user.name}</td>
                                 <td>${user.email}</td>
                                 <td class="editable" data-field="address" data-id="${user.id}">${user.address}</td>
                                 <td class="editable" data-field="phone_number" data-id="${user.id}">${user.phone_number}</td>
-                                <td><button class="edit-button" onclick="openEditModal(${user.id})">Edit</button></td>
+                                <td>
+                                    <button class="edit-button" onclick="openEditModal(${user.id})">Edit</button>
+                                    <button class="delete-button" onclick="deleteUser(${user.id})">Delete</button>
+                                </td>
                             </tr>
                         `;
                         userTableBody.innerHTML += row;
@@ -150,6 +204,30 @@ if(isset($_POST['get_users'])) {
             };
 
             xhr.send('get_users'); // Send the request to fetch users
+        }
+
+        // Function to delete a user
+        function deleteUser(userId) {
+            if (confirm('Are you sure you want to delete this user?')) {
+                // Make an AJAX request to delete the user
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'users.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            alert('User deleted successfully.');
+                            getUsers(); // Refresh user details after deleting
+                        } else {
+                            alert('Failed to delete user. Please try again.');
+                        }
+                    } else {
+                        alert('Failed to delete user. Please try again.');
+                    }
+                };
+                xhr.send(`delete_user=true&user_id=${userId}`);
+            }
         }
 
         // Function to open the edit modal with user details
@@ -182,40 +260,31 @@ if(isset($_POST['get_users'])) {
         // Function to save changes to user details
         function saveChanges() {
             const userId = document.getElementById('editUserId').value;
-            const inputFields = document.querySelectorAll('#editForm input');
-
-            const data = {
-                id: userId,
-                fields: {}
-            };
-
-            inputFields.forEach(input => {
-                const fieldName = input.dataset.field;
-                const fieldValue = input.value;
-                data.fields[fieldName] = fieldValue;
-            });
+            const name = document.querySelector('#editForm [data-field="name"]').value;
+            const address = document.querySelector('#editForm [data-field="address"]').value;
+            const phone_number = document.querySelector('#editForm [data-field="phone_number"]').value;
 
             // Perform AJAX request to update user details in the database
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "update_user.php", true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'users.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onload = function() {
                 if (xhr.status === 200) {
-                    alert('Changes saved successfully.');
-                    closeEditModal();
-                    getUsers(); // Refresh user details after saving changes
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        alert('Changes saved successfully.');
+                        closeEditModal();
+                        getUsers(); // Refresh user details after saving changes
+                    } else {
+                        alert('Failed to save changes. Please try again.');
+                    }
                 } else {
                     alert('Failed to save changes. Please try again.');
                 }
             };
+            xhr.send(`update_user=true&id=${userId}&name=${name}&address=${address}&phone_number=${phone_number}`);
+         }
 
-            xhr.onerror = function() {
-                alert('Failed to save changes. Please try again.');
-            };
-
-            xhr.send(JSON.stringify(data)); // Send the request to update user details
-        }
 
         // Load user details when the page is fully loaded
         window.onload = function() {

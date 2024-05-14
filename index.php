@@ -62,53 +62,6 @@
     </div>
 
 
-    <!-- check availability form -->
-    <div class="container availability-form">
-        <div class="row">
-            <div class="col-lg-l2 bg-white shadow p-4 rounded">
-                <h5 class="mb-4">Check Booking availability
-                </h5>
-                <form>
-                    <div class="row align-items-end">
-                        <div class="col-lg-4 mb-3">
-                            <label class="form-label" style="font-weight: 500;">Booking Date</label>
-                            <input type="date" class="form-control shadow-none">
-                        </div>
-                        <div class="col-lg-4 mb-3">
-                            <label class="form-label" style="font-weight: 500;">Time</label>
-                            <input type="time" class="form-control shadow-none">
-                        </div>
-                        <div class="col-lg-3 mb-3">
-                            <label class="form-label" style="font-weight: 500;">People</label>
-                            <select class="form-select" shadow-none>
-                                <!-- <option selected>Select number of people</option> -->
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                <option value="4">Four</option>
-                                <option value="5">Five</option>
-                                <option value="6">Six</option>
-                                <option value="7">Seven</option>
-                                <option value="8">Eight</option>
-                                <option value="9">Nine</option>
-                                <option value="10">Ten</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-1 mb-lg-3 mt-2">
-                            <button type="submit" class="btn text-white shadow-none custom-bg">Submit</button>
-                        </div>
-
-                    </div>
-                </form>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-
     <br><br><br>
     <br><br><br>
 
@@ -143,8 +96,9 @@
 
                         </div>
                         <div class="d-flex justify-content-evenly mb-2">
-                            <!-- <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a> -->
-                           
+                            <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
+                            <a href="#" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More
+                                Details</a>
                         </div>
 
 
@@ -181,8 +135,9 @@
 
                         </div>
                         <div class="d-flex justify-content-evenly mb-2">
-                            <!-- <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a> -->
-                           
+                            <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
+                            <a href="#" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More
+                                Details</a>
                         </div>
 
 
@@ -219,8 +174,9 @@
 
                         </div>
                         <div class="d-flex justify-content-evenly mb-2">
-                            <!-- <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a> -->
-                           
+                            <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Book Now</a>
+                            <a href="" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More
+                                Details</a>
                         </div>
 
 
@@ -237,7 +193,7 @@
 
 
             <div class="col-lg-l2 text-center mt-5">
-                <a href="tables.php" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More Tables</a>
+                <a href="tables.php" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More Tables>>></a>
 
             </div>
         </div>
@@ -429,4 +385,4 @@
 
 </body>
 
-</html>
+</html> 
