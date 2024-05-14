@@ -15,47 +15,41 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active me-2" aria-current="page" href="index.php">Home</a>
+                        <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') . '" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-2" href="tables.php">Tables</a>
+                        <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'tables.php' ? 'active' : '') . '" href="tables.php">Tables</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-2" href="gallery.php">Gallery</a>
+                        <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'gallery.php' ? 'active' : '') . '" href="gallery.php">Gallery</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-2" href="menu.php">Menu</a>
+                        <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'menu.php' ? 'active' : '') . '" href="menu.php">Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-2" href="contact.php">Contact us</a>
+                        <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : '') . '" href="contact.php">Contact us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about.php">About</a>
+                        <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : '') . '" href="about.php">About</a>
                     </li>
                 </ul>
                 <div class="d-flex">
-
-                <!-- Profile Button -->
+                    <!-- Profile Button -->
                     <form action="profile.php" method="GET">
-                    <button type="submit" class="btn btn-outline-dark shadow-none">Profile</button>
-                </form>
-
-   
-                
-
-
-
-                <div class="d-flex">
-                    <form action="all/logout.php" method="post">
-                        <button type="submit" class="btn btn-outline-dark shadow-none">Logout</button>
+                        <button type="submit" class="btn btn-outline-dark shadow-none">Profile</button>
                     </form>
+                    <div class="d-flex">
+                        <form action="all/logout.php" method="post">
+                            <button type="submit" class="btn btn-outline-dark shadow-none">Logout</button>
+                        </form>
+                    </div>
                 </div>
-
-
-
             </div>
         </div>
-    </nav>';
+    </nav>
+    ';
+
+
 } else {
     // If user is not logged in, display login and signup buttons
     echo '
@@ -69,24 +63,24 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active me-2" aria-current="page" href="index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-2" href="tables.php">Tables</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-2" href="gallery.php">Gallery</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-2" href="menu.php">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-2" href="contact.php">Contact us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.php">About</a>
-                    </li>
+                <li class="nav-item">
+                <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') . '" aria-current="page" href="index.php">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'tables.php' ? 'active' : '') . '" href="tables.php">Tables</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'gallery.php' ? 'active' : '') . '" href="gallery.php">Gallery</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'menu.php' ? 'active' : '') . '" href="menu.php">Menu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : '') . '" href="contact.php">Contact us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link ' . (basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : '') . '" href="about.php">About</a>
+            </li>
                 </ul>
                 <div class="d-flex">
                     <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-2" data-bs-toggle="modal"
@@ -102,6 +96,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
         </div>
     </nav>';
 }
+
 ?>
 
 
