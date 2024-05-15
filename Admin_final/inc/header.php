@@ -18,7 +18,10 @@
                                 <a class="nav-link text-light" href="user.php">User</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light" href="tables.php">Tables</a>
+                                <a class="nav-link text-light" href="table.php">Tables</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="reservation.php">Reservation</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="Reviews&Settings.php">Setting&Reviews</a>
