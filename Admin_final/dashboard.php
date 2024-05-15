@@ -69,7 +69,7 @@
                 <!-- Section for Table Reservations, Reviews, Total Users and Contact Information -->
                 <div class="row mb-4">
                     <div class="col-md-3 mb-4">
-                        <a href="#">
+                        <a href="user.php">
                             <div class="card text-center p-3 total-users">
                                 <h6>Total Users</h6>
                                 <p><?php echo getRowCount('user'); ?></p>
