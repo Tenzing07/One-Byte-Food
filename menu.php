@@ -66,7 +66,7 @@
 
 <body class="bg-light">
 
-   <!-- header -->
+   <!-- header included -->
    <?php require ('all/header.php'); ?>
     <div class="my-4 px-4">
         <h2 class="fw-bold h-font text-center">OUR MENU</h2>
@@ -78,7 +78,7 @@
 
     <div class="container mt-5 shadow p-5">
 
-        <!-- Appetizers -->
+        <!-- Appetizers pop up image and info -->
         <div class="menu-category">
             <h3>Appetizers</h3>
             <ul class="menu-list">

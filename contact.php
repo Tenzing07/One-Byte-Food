@@ -60,14 +60,14 @@
 
                     <h5 class="mt-4">Email</h5>
                     <a href="mailto: bristinaprajapati@gmail.com" class="d-inline-block text-decoration-none text-dark">
-                        <i class="bi bi-envelope-fill"></i> bristinaprajapati@gmail.com
+                        <i class="bi bi-envelope-fill"></i> onebytefood@gmail.com
                     </a>
 
                     <h5 class="mt-4">Follow us</h5>
-                    <a href="#" class="d-inline-block text-dark fs-9 me-2">
+                    <a href="https://www.facebook.com/" class="d-inline-block text-dark fs-9 me-2">
                         <i class="bi bi-facebook me-1"></i>
                     </a>
-                    <a href="#" class="d-inline-block text-dark fs-9">
+                    <a href="https://www.instagram.com/" class="d-inline-block text-dark fs-9">
                         <i class="bi bi-instagram"></i>
                     </a>
 

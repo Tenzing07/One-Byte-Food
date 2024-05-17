@@ -49,7 +49,7 @@
     </style>
 </head>
 <body class="bg-light">
-    <!-- Include header -->
+    <!-- header included -->
     <?php require_once 'all/header.php'; ?>
     <div class="my-4 px-4">
         <h2 class="fw-bold h-font text-center">MY PROFILE</h2>
@@ -77,18 +77,18 @@
                     </tr>
                 </thead>
                 <tbody id="bookingHistoryBody">
-                    <!-- Booking history data will be dynamically populated here -->
+                  
                 </tbody>
             </table>
         </div>
     </div>
-    <!-- Include necessary JavaScript files -->
+   
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         $(document).ready(function() {
             // Function to fetch user data and bookings
             function fetchUserDataAndBookings() {
-                // Fetch user data using AJAX
+                
                 $.ajax({
                     type: 'GET',
                     url: 'fetch_user_data.php',

@@ -295,8 +295,8 @@
                         <i class="bi bi-telephone-fill"></i> +977 1-4567891
                     </a>
                     <h5 class="mt-4">Email</h5>
-                    <a href="mailto: bristinaprajapati@gmail.com" class="d-inline-block text-decoration-none text-dark">
-                        <i class="bi bi-envelope-fill"></i> bristinaprajapati@gmail.com
+                    <a href="mailto: onebytefood@gmail.com" class="d-inline-block text-decoration-none text-dark">
+                        <i class="bi bi-envelope-fill"></i> onebytefood@gmail.com
                     </a>
 
                 </div>
@@ -305,13 +305,13 @@
                 <div class="bg-white p-4 rounded mb-4">
                     <h5>Follow us</h5>
 
-                    <a href="#" class="d-inline-block mb-3">
+                    <a href="https://www.facebook.com/" class="d-inline-block mb-3">
                         <span class="badge bg-light text-dark fs-6 p-2">
                             <i class="bi bi-facebook me-1"></i> Facebook
                         </span>
                     </a>
                     <br>
-                    <a href="#" class="d-inline-block mb-3">
+                    <a href="https://www.instagram.com/" class="d-inline-block mb-3">
                         <span class="badge bg-light text-dark fs-6 p-2">
                             <i class="bi bi-instagram"></i> Instagram
                         </span>
