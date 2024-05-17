@@ -1,63 +1,41 @@
+<?php
+require('inc/essentials.php');
+require('inc/db_config.php');
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One Byte Foods</title>
-
-    <?php require ('all/links.php'); ?>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
+    <title>Admin login panel</title>
+    <?php require('inc/link.php');?> 
     <style>
-        .availability-form {
-            margin-top: -140px;
-            margin-bottom: -100px;
-            z-index: 11;
-            position: relative;
-
-        }
-
-        @media screen and (max-width: 575px) {
-
-            .availability-form {
-                margin-top: 20px;
-                padding: 0 35px;
-
-            }
+        div.login-form{
+            position : absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            width: 400px;
         }
     </style>
-
 </head>
-
 <body class="bg-light">
-
-    <?php require ('all/header.php'); ?>
-
-    <div class="container-fluid">
-        <!-- Swiper -->
-        <div class="swiper swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="restaurant_images/1.jpg" class="w-100 d-block" />
+    <div class="login-form text-center rounded bg-white shadow overflow-hidden">
+        <div>
+            <form method="POST" action="">
+                <h4 class="bg-dark text-white py-3"> Admin Login Panel </h4>
+                <div class="mb-3">
+                    <input name="admin_name" type="text" required class="form-control shadow-none text-center" placeholder="Admin Name">
                 </div>
-                <div class="swiper-slide">
-                    <img src="restaurant_images/2.jpg" class="w-100 d-block" />
+                <div class="mb-5">
+                    <label class="form-label">Password</label>
+                    <input name="password" type="password" required class="form-control shadow-none text-center" placeholder="Password">
                 </div>
-                <div class="swiper-slide">
-                    <img src="restaurant_images/3.jpg" class="w-100 d-block" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="restaurant_images/4.jpg" class="w-100 d-block" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="restaurant_images/5.jpg" class="w-100 d-block" />
-                </div>
-            </div>
-
-
+                <button name="login" type="submit" class="btn text-black custom-bg shadow-none">Login</button>
+            </form>
         </div>
+<<<<<<< HEAD
 
     </div>
 
@@ -345,44 +323,40 @@
                 disableOnInteraction: false,
 
 
+=======
+        <?php
+        // Define filterData function
+        function filterData($data) {
+            global $con;
+            foreach ($data as $key => $value) {
+                $data[$key] = mysqli_real_escape_string($con, htmlspecialchars(stripslashes(trim($value)), ENT_QUOTES, 'UTF-8'));
+>>>>>>> 3d013880f9ccbac2d238c25e84751657a7549e2e
             }
+            return $data;
+        }
 
-        });
+        if (isset($_POST['login'])) {
+            $frm_data = filterData($_POST);
+            // Ensure the column names in the query match your database structure
+            $query = "SELECT * FROM `admin_cred` WHERE `admin_name` = ? AND `admin_pass` = ?";
 
-        var swiper = new Swiper(".swiper-testimonials", {
-            effect: "coverflow",
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: "auto",
-            slidesPerView: "3",
-            loop: true,
-            coverflowEffect: {
-                rotate: 50,
-                stretch: 0,
-                depth: 100,
-                modifier: 1,
-                slideShadows: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-            },
-            breakpoints: {
-                320: {
-                    slidesPerView: 1,
-                },
-                640: {
-                    slidesPerView: 1,
-                },
-                768: {
-                    slidesPerView: 2,
-                },
-                1024: {
-                    slidesPerView: 3,
-                },
-            },
-        });
-    </script>
+            // The keys in $frm_data should match the 'name' attributes of your form inputs
+            $values = [$frm_data['admin_name'], $frm_data['password']];
 
+            // Pass the database connection as the first argument to the select function
+            $res = select($con, $query, $values, "ss") or die(mysqli_error($con));
+
+            if ($res->num_rows == 1) {
+                $row = mysqli_fetch_assoc($res);
+                $_SESSION['adminLogin'] = true;
+                $_SESSION['adminId'] = $row['sr_no'];
+                redirect('dashboard.php');
+            } else {
+                alert('error', 'Login failed - Invalid Credentials!!');
+            }
+        }
+        ?>
+        <?php require('inc/scripts.php') ?>
+    </div>
 </body>
-
-</html> 
+</html>
