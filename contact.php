@@ -121,9 +121,10 @@ if(isset($_POST['send']))
         alert('success','Mail sent');
     }
     else{
-        alert('error','Server Down! try again later.')
+        alert('error','Server Down! try again later.');
 
     }
+
 }
 ?>
 
